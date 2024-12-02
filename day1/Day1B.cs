@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-
-namespace Day1
+﻿namespace Day1
 {
     public class Day1B : Day1
     {
@@ -25,7 +22,7 @@ namespace Day1
             for (int i = 1; i < right.Count; i++)
             {
                 int currentValue = right[i];
-                if(currentValue != lastValue)
+                if (currentValue != lastValue)
                 {
                     counts.Add(lastValue, count);
                     lastValue = currentValue;
@@ -42,7 +39,7 @@ namespace Day1
             for (int i = 0; i < left.Count; i++)
             {
                 int number = left[i];
-                if(counts.ContainsKey(number))
+                if (counts.ContainsKey(number))
                 {
                     result += left[i] * counts[number];
                 }

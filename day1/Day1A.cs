@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-
-namespace Day1
+﻿namespace Day1
 {
     public class Day1A : Day1
     {
