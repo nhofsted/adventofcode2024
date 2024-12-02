@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Day1A": {
+      "commandName": "Project"
+    },
+    "Day1B": {
+      "commandName": "Project"
+    }
+  }
+}
