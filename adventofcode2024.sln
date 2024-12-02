@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day1", "day1\Day1.csproj", "{4A090482-CD8E-44B5-A862-44D4E76D9668}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day1", "day1\Day1.csproj", "{4A090482-CD8E-44B5-A862-44D4E76D9668}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8} = {D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day2", "Day2\Day2.csproj", "{8D7007FB-5281-4C92-AC0A-B6D55D373A32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2A16A6D-02BE-4F8F-B710-52D8B50C1CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7007FB-5281-4C92-AC0A-B6D55D373A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7007FB-5281-4C92-AC0A-B6D55D373A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7007FB-5281-4C92-AC0A-B6D55D373A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7007FB-5281-4C92-AC0A-B6D55D373A32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
