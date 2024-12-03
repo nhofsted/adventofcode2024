@@ -4,7 +4,7 @@
     {
         public void run()
         {
-            StreamReader sample = new StreamReader("..\\..\\..\\data\\sample.txt");
+            StreamReader sample = new StreamReader("..\\..\\..\\data\\" + GetSampleFile());
             long sampleResult = Solve(sample);
             Console.WriteLine("Sample solution: " + sampleResult);
 
@@ -18,6 +18,12 @@
                 Console.WriteLine("Sample solution " + sampleResult + " differs from expected " + GetSampleSolution());
             }
         }
+
+        virtual public string GetSampleFile()
+        {
+            return "sample.txt";
+        }
+
         public abstract long GetSampleSolution();
 
         public abstract long Solve(StreamReader input);
