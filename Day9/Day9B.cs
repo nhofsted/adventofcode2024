@@ -1,5 +1,4 @@
-﻿
-namespace Day9
+﻿namespace Day9
 {
     internal class Day9B : Day9
     {
@@ -12,68 +11,64 @@ namespace Day9
         {
             // Create filesystem layout
             LinkedList<Block> filesystem = new LinkedList<Block>();
+            int start = 0;
             for (int i = 0; i < layout.Length; ++i)
             {
                 int length = layout[i] - '0';
-                filesystem.AddLast(i % 2 == 0 ? new Block(i / 2, length) : new Block(length));
+                filesystem.AddLast(i % 2 == 0 ? new Block(i / 2, start, length) : new Block(start, length));
+                start += length;
             }
 
             // Create shortcuts to first free space capable of containing a data block of a specific size
-            LinkedListNode<Block>[] firstFreeSpaceOfSize = new LinkedListNode<Block>[9];
-            CreateShortcuts(firstFreeSpaceOfSize, filesystem.First, filesystem.Last);
-
-            // Try moving data blocks forward
-            LinkedListNode<Block> dataIterator = filesystem.Last;
-            while (dataIterator != null)
+            LinkedList<LinkedListNode<Block>>[] emptyBlocks = new LinkedList<LinkedListNode<Block>>[9];
+            for (int i = 0; i < emptyBlocks.Length; ++i)
             {
-                if (dataIterator.Value.IsEmpty())
+                emptyBlocks[i] = new LinkedList<LinkedListNode<Block>>();
+            }
+            LinkedListNode<Block>? freeSpaceFinder = filesystem.First;
+            while (freeSpaceFinder != null)
+            {
+                if (freeSpaceFinder.Value.IsEmpty() && freeSpaceFinder.Value.Size > 0)
                 {
-                    // If we pass shortcuts, make them unusable
-                    for (int i = 0; i < 9; ++i)
-                    {
-                        if (firstFreeSpaceOfSize[i] == dataIterator) firstFreeSpaceOfSize[i] = null;
-                    }
+                    emptyBlocks[freeSpaceFinder.Value.Size - 1].AddLast(freeSpaceFinder);
                 }
-                else
+                freeSpaceFinder = freeSpaceFinder.Next;
+            }
+
+            // Try moving blocks forward
+            LinkedListNode<Block>? dataPointer = filesystem.Last;
+            while (dataPointer != null)
+            {
+                if (!dataPointer.Value.IsEmpty())
                 {
-                    int size = dataIterator.Value.Size;
-                    for (int i = size - 1; i < 9; ++i)
+                    LinkedListNode<Block>? freeSpace = null;
+                    for (int i = dataPointer.Value.Size - 1; i < 9; ++i)
                     {
-                        if (firstFreeSpaceOfSize[i] != null)
+                        if (emptyBlocks[i].Count > 0)
                         {
-                            // Copy block to target and adjust remaining space
-                            LinkedListNode<Block> insertionPoint = firstFreeSpaceOfSize[i];
-                            filesystem.AddBefore(insertionPoint, dataIterator.Value);
-                            int remaining = insertionPoint.Value.Size - dataIterator.Value.Size;
-                            LinkedListNode<Block> remainingPointer = filesystem.AddBefore(insertionPoint, new Block(remaining));
-                            filesystem.Remove(insertionPoint);
-
-                            // Adjust shortcuts
-                            for (int d = 0; d < 9; ++d)
-                            {
-                                if (firstFreeSpaceOfSize[d] == insertionPoint)
-                                {
-                                    firstFreeSpaceOfSize[d] = null;
-                                }
-                            }
-                            for (int r = remaining; r-- > 0;)
-                            {
-                                if (firstFreeSpaceOfSize[r] == null)
-                                {
-                                    firstFreeSpaceOfSize[r] = remainingPointer;
-                                }
-                            }
-                            CreateShortcuts(firstFreeSpaceOfSize, remainingPointer, dataIterator);
-
-                            // Delete block from source location
-                            LinkedListNode<Block> toDelete = dataIterator;
-                            dataIterator = filesystem.AddBefore(dataIterator, new Block(dataIterator.Value.Size));
-                            filesystem.Remove(toDelete);
-                            break;
+                            if (freeSpace == null && emptyBlocks[i].First().Value.Start < dataPointer.Value.Start) freeSpace = emptyBlocks[i].First();
+                            else if (freeSpace != null && emptyBlocks[i].First().Value.Start < freeSpace.Value.Start && freeSpace.Value.Start < dataPointer.Value.Start) freeSpace = emptyBlocks[i].First();
                         }
                     }
+                    if (freeSpace != null)
+                    {
+                        filesystem.AddBefore(freeSpace, new Block(dataPointer.Value.FileId, freeSpace.Value.Start, dataPointer.Value.Size));
+                        if (freeSpace.Value.Size > dataPointer.Value.Size)
+                        {
+                            LinkedListNode<Block> newFreeSpace = filesystem.AddBefore(freeSpace, new Block(freeSpace.Value.Start + dataPointer.Value.Size, freeSpace.Value.Size - dataPointer.Value.Size));
+                            LinkedListNode<LinkedListNode<Block>>? insertPos = emptyBlocks[newFreeSpace.Value.Size - 1].First;
+                            while (insertPos != null && insertPos.Value.Value.Start < newFreeSpace.Value.Start) insertPos = insertPos.Next;
+                            if (insertPos == null) emptyBlocks[newFreeSpace.Value.Size - 1].AddLast(newFreeSpace);
+                            else emptyBlocks[newFreeSpace.Value.Size - 1].AddBefore(insertPos, newFreeSpace);
+                        }
+                        emptyBlocks[freeSpace.Value.Size - 1].Remove(freeSpace);
+                        filesystem.Remove(freeSpace);
+                        LinkedListNode<Block> newDataPointer = filesystem.AddBefore(dataPointer, new Block(dataPointer.Value.Start, dataPointer.Value.Size));
+                        filesystem.Remove(dataPointer);
+                        dataPointer = newDataPointer;
+                    }
                 }
-                dataIterator = dataIterator.Previous;
+                dataPointer = dataPointer.Previous;
             }
 
             // Calculate checksum
@@ -100,46 +95,23 @@ namespace Day9
             return checksum;
         }
 
-        private static void CreateShortcuts(LinkedListNode<Block>[] firstFreeSpaceOfSize, LinkedListNode<Block> iterator, LinkedListNode<Block> end)
-        {
-            int toFill = 0;
-            for (int i = 0; i < firstFreeSpaceOfSize.Length; ++i)
-            {
-                if (firstFreeSpaceOfSize[i] == null) toFill++;
-            }
-            int filled = 0;
-            while (filled < toFill && iterator != end)
-            {
-                if (iterator.Value.IsEmpty())
-                {
-                    int freeSpace = iterator.Value.Size;
-                    for (int i = freeSpace; i-- > 0;)
-                    {
-                        if (firstFreeSpaceOfSize[i] == null)
-                        {
-                            firstFreeSpaceOfSize[i] = iterator;
-                            ++filled;
-                        }
-                    }
-                }
-                iterator = iterator.Next;
-            }
-        }
-
         public class Block
         {
             public int FileId { get; }
+            public int Start { get; }
             public int Size { get; }
 
-            public Block(int fileId, int size)
+            public Block(int fileId, int start, int size)
             {
                 this.FileId = fileId;
+                this.Start = start;
                 this.Size = size;
             }
 
-            public Block(int size)
+            public Block(int start, int size)
             {
                 this.FileId = -1;
+                this.Start = start;
                 this.Size = size;
             }
 
