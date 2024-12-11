@@ -35,7 +35,7 @@ namespace Day10
             {
                 if (h == 9)
                 {
-                    return [ new Tuple<int, int>(y, x) ];
+                    return [new Tuple<int, int>(y, x)];
                 }
                 else
                 {
