@@ -4,7 +4,7 @@ namespace Day5
 {
     public abstract class Day5 : Puzzle
     {
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             Dictionary<int, List<int>> requirements = parseRequirements(input);
 

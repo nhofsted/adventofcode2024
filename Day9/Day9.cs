@@ -4,7 +4,7 @@ namespace Day9
 {
     public abstract class Day9 : Puzzle
     {
-        public override long Solve(StreamReader input)
+        public override long Solve(StreamReader input, bool sample)
         {
             string layout = input.ReadLine();
             return Defrag(layout);

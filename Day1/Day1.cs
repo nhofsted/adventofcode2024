@@ -4,7 +4,7 @@ namespace Day1
 {
     public abstract class Day1 : Puzzle
     {
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             List<int> left = new List<int>();
             List<int> right = new List<int>();

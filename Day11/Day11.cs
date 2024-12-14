@@ -21,7 +21,7 @@ namespace Day11
 
         Dictionary<Tuple<string, int>, long> memory = new Dictionary<Tuple<string, int>, long>(new MemoryKeyComparer());
 
-        public override long Solve(StreamReader input)
+        public override long Solve(StreamReader input, bool sample)
         {
 
             long retVal = 0;

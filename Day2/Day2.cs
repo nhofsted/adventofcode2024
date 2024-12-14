@@ -4,7 +4,7 @@ namespace Day2
 {
     public abstract class Day2 : Puzzle
     {
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             int score = 0;
             string? line;

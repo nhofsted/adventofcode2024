@@ -5,7 +5,7 @@ namespace Day3
 {
     public abstract class Day3 : Puzzle
     {
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             Regex mul = new Regex("mul\\(([0-9]{1,3}),([0-9]{1,3})\\)|don't\\(\\)|do\\(\\)");
             long result = 0;

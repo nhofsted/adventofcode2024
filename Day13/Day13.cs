@@ -5,7 +5,7 @@ namespace Day13
 {
     public abstract class Day13 : Puzzle
     {
-        public override long Solve(StreamReader input)
+        public override long Solve(StreamReader input, bool sample)
         {
             Regex numbers = new Regex("[^0-9]*([0-9]+)[^0-9]*([0-9]+)");
             long retVal = 0;
@@ -25,8 +25,8 @@ namespace Day13
                 long C = GetOffset() + int.Parse(match.Groups[1].Value);
                 long F = GetOffset() + int.Parse(match.Groups[2].Value);
                 line = input.ReadLine();
-                if(E * A != B * D)
-                { 
+                if (E * A != B * D)
+                {
                     long X = (E * C - B * F) / (E * A - B * D);
                     long Y = (A * F - C * D) / (E * A - B * D);
                     if (A * X + B * Y == C && D * X + E * Y == F)

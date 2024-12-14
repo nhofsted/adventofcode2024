@@ -5,13 +5,13 @@
         public void run()
         {
             StreamReader sample = new StreamReader("..\\..\\..\\data\\" + GetSampleFile());
-            long sampleResult = Solve(sample);
+            long sampleResult = Solve(sample, true);
             Console.WriteLine("Sample solution: " + sampleResult);
 
             if (sampleResult == GetSampleSolution())
             {
                 StreamReader data = new StreamReader("..\\..\\..\\data\\data.txt");
-                Console.WriteLine("Puzzle solution: " + Solve(data));
+                Console.WriteLine("Puzzle solution: " + Solve(data, false));
             }
             else
             {
@@ -26,6 +26,6 @@
 
         public abstract long GetSampleSolution();
 
-        public abstract long Solve(StreamReader input);
+        public abstract long Solve(StreamReader input, bool sample);
     }
 }

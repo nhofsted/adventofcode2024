@@ -7,7 +7,7 @@
             return 41;
         }
 
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             Parse(input);
 

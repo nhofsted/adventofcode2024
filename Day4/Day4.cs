@@ -8,7 +8,7 @@ namespace Day4
         protected int width = 0;
         protected int height = 0;
 
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             List<char[]> gridBuilder = new List<char[]>();
             string? line;

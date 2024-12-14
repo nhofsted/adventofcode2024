@@ -4,7 +4,7 @@ namespace Day12
 {
     public abstract class Day12 : Puzzle
     {
-        public override long Solve(StreamReader input)
+        public override long Solve(StreamReader input, bool sample)
         {
             List<char[]> gridBuilder = new List<char[]>();
 

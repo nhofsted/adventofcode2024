@@ -8,7 +8,7 @@ namespace Day6
             return 6;
         }
 
-        override public long Solve(StreamReader input)
+        override public long Solve(StreamReader input, bool sample)
         {
             Parse(input);
 
