@@ -7,9 +7,6 @@ namespace Day13
     {
         public override long Solve(StreamReader input)
         {
-            //Button A: X+94, Y+34
-            //Button B: X + 22, Y + 67
-            //Prize: X = 8400, Y = 5400
             Regex numbers = new Regex("[^0-9]*([0-9]+)[^0-9]*([0-9]+)");
             long retVal = 0;
 
@@ -28,12 +25,15 @@ namespace Day13
                 long C = GetOffset() + int.Parse(match.Groups[1].Value);
                 long F = GetOffset() + int.Parse(match.Groups[2].Value);
                 line = input.ReadLine();
-                long X = (E * C - B * F) / (E * A - B * D);
-                long Y = (A * F - C * D) / (E * A - B * D);
-                if (A * X + B * Y == C && D * X + E * Y == F)
-                {
-                    retVal += 3 * X;
-                    retVal += Y;
+                if(E * A != B * D)
+                { 
+                    long X = (E * C - B * F) / (E * A - B * D);
+                    long Y = (A * F - C * D) / (E * A - B * D);
+                    if (A * X + B * Y == C && D * X + E * Y == F)
+                    {
+                        retVal += 3 * X;
+                        retVal += Y;
+                    }
                 }
             }
             return retVal;
