@@ -1,6 +1,6 @@
 ﻿using Common;
 
-namespace Day20
+namespace Day21
 {
     public abstract class Day21 : Puzzle
     {

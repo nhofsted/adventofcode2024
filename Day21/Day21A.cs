@@ -1,4 +1,4 @@
-﻿namespace Day20
+﻿namespace Day21
 {
     internal class Day21A : Day21
     {
