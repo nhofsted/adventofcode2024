@@ -32,7 +32,7 @@ namespace Day21
 
         private long CalculateMoveLength(string target, List<Dictionary<char, Tuple<int, int>>> transforms, int i, Dictionary<Tuple<string, int>, long> memory)
         {
-            if(memory.TryGetValue(new Tuple<string, int>(target, i), out long value)) return value;
+            if (memory.TryGetValue(new Tuple<string, int>(target, i), out long value)) return value;
             if (i == transforms.Count) return target.Length;
             Dictionary<char, Tuple<int, int>> coords = transforms[i];
             char pos = 'A';

@@ -6,7 +6,7 @@
         {
             return 126384;
         }
-        
+
         protected override int GetNumberOfDirectionalKeypads()
         {
             return 2;
